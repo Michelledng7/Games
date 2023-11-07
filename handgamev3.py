@@ -13,13 +13,15 @@ def playgame():
     while playagain:
         playerchoice = input(
             '\nPlease enter \n 1 for Rock, \n 2 for Paper, \n 3 for Scissors \n\n')
+
+        if playerchoice not in ['1', '2', '3']:
+            print('You must enter a number between 1 and 3')
+            return playgame()  # Returns a recursive function call
+
         player = int(playerchoice)
 
         computerchoice = random.choice('123')
         computer = int(computerchoice)
-
-        if player > 3 or player < 1:
-            sys.exit('You must enter a number between 1 and 3')
 
         print('\nYou chose: ' + str(HANDGAME(player)
                                     ).replace('HANDGAME.', '') + '.\n')
@@ -37,14 +39,18 @@ def playgame():
         else:
             print('🐍 Computer won')
 
-        playagain = input('\nPlay again? (y/n): \n')
+        print('\nPlay again?')
+        while True:
+            playagain = input('\nY for yes or \nQ to quit: \n')
+            if playagain.lower() not in ['y', 'q']:
+                continue
+            else:
+                break
         if playagain.lower() == 'y':
-            continue
+            return playgame()
         else:
-            playagain = False
             print('\n🎉🎉🎉🎉 Thanks for playing!\n')
+            sys.exit('\n See ya! \n')
 
-
-sys.exit('\n See ya! \n')
 
 playgame()
